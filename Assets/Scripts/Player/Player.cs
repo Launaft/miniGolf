@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawLine(ray.origin, hit.point);
     }
-
+    //строка для проверки
     private void Update()
     {
         ray = Camera.ScreenPointToRay(Input.mousePosition);
