@@ -1,7 +1,15 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
+    public Text txt1;
+    public Text txt2;
+    public Text txt3;
+    public Text txt4;
+    private int deaths;
+    private int wins;
+    private int acceleration;
+
     public Camera Camera;
     public LayerMask Ground;
 
@@ -16,10 +24,39 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Ray ray;
 
+    Vector3 startPos;//Стартовая позиция шара
+
     private void Start()
     {
+        startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         lineRenderer = GetComponent<LineRenderer>();
+        txt1.text = ("Победы: " + wins.ToString());
+        txt2.text = ("Поражения: " + deaths.ToString());
+        txt3.text = ("Сила: " + force.ToString());
+        txt4.text = ("Ускорения: " + acceleration.ToString());
+    }
+
+    public void OnTriggerEnter(Collider Trigger)//Срабатывает, когда шар касается объекта с триггером
+    {
+        if (Trigger.CompareTag("KZone"))
+        {
+            transform.position = startPos;//Возвращает шар к началу
+            force = 0;//Хотел, чтобы сбрасывало скорость, но не работает
+            deaths++;
+            txt2.text = ("Поражения: " + deaths.ToString());
+            acceleration = 0;
+            txt4.text = ("Ускорения: " + acceleration.ToString());
+        }
+        if (Trigger.CompareTag("Finish"))
+        {
+            transform.position = startPos;
+            force = 0;
+            wins++;
+            txt1.text = ("Победы: " + wins.ToString());
+            acceleration = 0;
+            txt4.text = ("Ускорения: " + acceleration.ToString());
+        }
     }
 
     private void OnDrawGizmos()
@@ -51,6 +88,8 @@ public class Player : MonoBehaviour
             }
             else if (force > 0)
             {
+                acceleration++;
+                txt4.text = ("Ускорения: " + acceleration.ToString());
                 rb.AddForce(dir * force, ForceMode.Impulse);
                 force = 0;
             }
