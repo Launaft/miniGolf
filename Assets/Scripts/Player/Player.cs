@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+
 public class Player : MonoBehaviour
 {
     public Text ForceTxt;
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Ray ray;
 
-    Vector3 startPos;//Стартовая позиция шара
+    Vector3 startPos;
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
         PunchesTxt.text = ("Punches: " + acceleration.ToString());
     }
 
-    public void OnTriggerEnter(Collider Trigger)//Срабатывает, когда шар касается объекта с триггером
+    public void OnTriggerEnter(Collider Trigger)
     {
         if (Trigger.CompareTag("KZone"))
         {
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawLine(ray.origin, hit.point);
     }
-    //строка для проверки
+
     private void Update()
     {
         ray = Camera.ScreenPointToRay(Input.mousePosition);
@@ -59,8 +60,6 @@ public class Player : MonoBehaviour
         {
             Vector3 p = hit.point;
             p.y = transform.position.y;
-
-            Debug.Log(hit.point);
 
             Vector3 dir = (p - transform.position);
             dir.Normalize();
