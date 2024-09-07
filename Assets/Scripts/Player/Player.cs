@@ -41,8 +41,8 @@ public class Player : MonoBehaviour
     {
         if (Trigger.CompareTag("KZone"))
         {
-            transform.position = startPos;//Возвращает шар к началу
-            force = 0;//Хотел, чтобы сбрасывало скорость, но не работает
+            transform.position = startPos;
+            force = 0;
             deaths++;
             txt2.text = ("Поражения: " + deaths.ToString());
             acceleration = 0;
