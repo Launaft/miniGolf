@@ -1,13 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 public class Player : MonoBehaviour
 {
-    public Text txt1;
-    public Text txt2;
-    public Text txt3;
-    public Text txt4;
-    private int deaths;
-    private int wins;
+    public Text ForceTxt;
+    public Text PunchesTxt;
     private int acceleration;
 
     public Camera Camera;
@@ -31,31 +28,21 @@ public class Player : MonoBehaviour
         startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         lineRenderer = GetComponent<LineRenderer>();
-        txt1.text = ("Победы: " + wins.ToString());
-        txt2.text = ("Поражения: " + deaths.ToString());
-        txt3.text = ("Сила: " + force.ToString());
-        txt4.text = ("Ускорения: " + acceleration.ToString());
+        ForceTxt.text = ("Force: " + force.ToString());
+        PunchesTxt.text = ("Punches: " + acceleration.ToString());
     }
 
     public void OnTriggerEnter(Collider Trigger)//Срабатывает, когда шар касается объекта с триггером
     {
         if (Trigger.CompareTag("KZone"))
         {
-            transform.position = startPos;//Возвращает шар к началу
-            force = 0;//Хотел, чтобы сбрасывало скорость, но не работает
-            deaths++;
-            txt2.text = ("Поражения: " + deaths.ToString());
             acceleration = 0;
-            txt4.text = ("Ускорения: " + acceleration.ToString());
+            PunchesTxt.text = ("Punches: " + acceleration.ToString());
         }
         if (Trigger.CompareTag("Finish"))
         {
-            transform.position = startPos;
-            force = 0;
-            wins++;
-            txt1.text = ("Победы: " + wins.ToString());
             acceleration = 0;
-            txt4.text = ("Ускорения: " + acceleration.ToString());
+            PunchesTxt.text = ("Punches: " + acceleration.ToString());
         }
     }
 
@@ -85,11 +72,14 @@ public class Player : MonoBehaviour
 
                 if (force < forceLimit)
                     force += forceRate * Time.deltaTime;
+
+                ForceTxt.text = ("Force: " + Math.Round(force).ToString());
             }
             else if (force > 0)
             {
+                
                 acceleration++;
-                txt4.text = ("Ускорения: " + acceleration.ToString());
+                PunchesTxt.text = ("Punches: " + acceleration.ToString());
                 rb.AddForce(dir * force, ForceMode.Impulse);
                 force = 0;
             }
