@@ -39,7 +39,7 @@ public class Platform : MonoBehaviour
                 Wait();
             }
                 
-            if (Vector3.Distance(_rb.transform.position, _startPoint) < 0.1f)
+            if (Vector3.Distance(_rb.transform.position, _startPoint) < 0.05f)
             {
                 _returning = false;
                 Wait();

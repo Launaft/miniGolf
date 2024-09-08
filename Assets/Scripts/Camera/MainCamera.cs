@@ -12,7 +12,7 @@ public class MainCamera : MonoBehaviour
     private void Update()
     {
         Vector3 cameraPos = player.transform.position;
-        cameraPos.y = 7;
+        cameraPos.y = player.transform.position.y + 7;
 
         gameObject.transform.position = cameraPos;
     }
