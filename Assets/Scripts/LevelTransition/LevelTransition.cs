@@ -18,18 +18,16 @@ public class LevelTransition : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(Name);
-        panel.SetActive(false);
     }
 
-    // Start is called before the first frame update
+    public void RestartLevel()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     void Start()
     {
         panel.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
